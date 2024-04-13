@@ -66,7 +66,6 @@ export default function AddArticle() {
           addDoc(articleRef, {
             name: formData.name,
             description: formData.description,
-            // imageUrl: url,
             source: formData.source,
             image: formData.image,
             url: formData.url,
@@ -152,16 +151,7 @@ export default function AddArticle() {
             onChange={(e) => handleChange(e)}
           />
 
-          {/* image */}
-          <label htmlFor="">Image</label>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            className="form-control"
-            onChange={(e) => handleImageChange(e)}
-          />
-
+        
           {progress === 0 ? null : (
             <div className="progress">
               <div
