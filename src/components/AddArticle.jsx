@@ -28,65 +28,40 @@ export default function AddArticle() {
     setFormData({ ...formData, image: e.target.files[0] });
   };
 
-  const handlePublish = () => {
-    if (!formData.name || !formData.description || !formData.image) {
-      alert("Please fill all the fields");
+    const handlePublish = () => {
+    if (!formData.name || !formData.description) {
+      alert("Please fill all the required fields");
       return;
     }
 
-    const storageRef = ref(
-      storage,
-      `/uploads/${Date.now()}${formData.image.name}`
-    );
-
-    const uploadImage = uploadBytesResumable(storageRef, formData.image);
-
-    uploadImage.on(
-      "state_changed",
-      (snapshot) => {
-        const progressPercent = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progressPercent);
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
+    const articleRef = collection(db, "Articles");
+    addDoc(articleRef, {
+      name: formData.name,
+      description: formData.description,
+      source: formData.source,
+      url: formData.url,
+      createdBy: user.displayName,
+      userId: user.uid,
+      category: formData.category,
+      createdAt: Timestamp.now().toDate(),
+      likes: [],
+      comments: [],
+    })
+      .then(() => {
+        toast("Article added successfully", { type: "success" });
         setFormData({
           name: "",
           source: "",
           url: "",
           description: "",
-          image: "",
+          category: "",
         });
-
-        getDownloadURL(uploadImage.snapshot.ref).then((url) => {
-          const articleRef = collection(db, "Articles");
-          addDoc(articleRef, {
-            name: formData.name,
-            description: formData.description,
-            source: formData.source,
-            image: formData.image,
-            url: formData.url,
-            createdBy: user.displayName,
-            userId: user.uid,
-            category: formData.category,
-            createdAt: Timestamp.now().toDate(),
-            likes: [],
-            comments: [],
-          })
-            .then(() => {
-              toast("Article added successfully", { type: "success" });
-              setProgress(0);
-            })
-            .catch((err) => {
-              toast("Error adding article", { type: "error" });
-            });
-        });
-      }
-    );
+      })
+      .catch((err) => {
+        toast("Error adding article", { type: "error" });
+      });
   };
+
 
   return (
     <div
