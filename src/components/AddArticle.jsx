@@ -40,6 +40,7 @@ export default function AddArticle() {
       description: formData.description,
       source: formData.source,
       url: formData.url,
+      image: formData.image,
       createdBy: user.displayName,
       userId: user.uid,
       category: formData.category,
@@ -55,6 +56,7 @@ export default function AddArticle() {
           url: "",
           description: "",
           category: "",
+          image: ""
         });
       })
       .catch((err) => {
