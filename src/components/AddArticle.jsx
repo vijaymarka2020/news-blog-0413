@@ -86,6 +86,7 @@ export default function AddArticle() {
             >
               <option value="">Select category</option>
               <option value="movies">movies</option>
+              <option value="image">image</option>
               <option value="national">national</option>
               <option value="international">international</option>
               <option value="sports">sports</option>
