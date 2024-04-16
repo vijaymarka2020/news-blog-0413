@@ -78,21 +78,7 @@ export default function AddArticle() {
             {/* News specific fields */}
             {/* Category */}
             <label htmlFor="">Category</label>
-            <select
-              name="category"
-              className="form-control"
-              value={formData.category}
-              onChange={(e) => handleChange(e)}
-            >
-              <option value="">Select category</option>
-              <option value="movies">movies</option>
-              <option value="image">image</option>
-              <option value="national">national</option>
-              <option value="international">international</option>
-              <option value="sports">sports</option>
-              <option value="state">state</option>
-            </select>
-
+           
             <label htmlFor="">Source</label>
             <input
               type="text"
@@ -167,6 +153,25 @@ export default function AddArticle() {
               <option value="image">Image</option>
             </select>
           </>
+          <>
+            <select
+              name="category"
+              className="form-control"
+              value={formData.category}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="">Select category</option>
+              <option value="movies">movies</option>
+              <option value="image">image</option>
+              <option value="national">national</option>
+              <option value="international">international</option>
+              <option value="sports">sports</option>
+              <option value="state">state</option>
+            </select>
+
+          </>
+ 
+          
           <div className="form-group">
             <label htmlFor="">Name</label>
             <input
